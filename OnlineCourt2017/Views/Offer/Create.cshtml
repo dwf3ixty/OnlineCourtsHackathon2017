@@ -1,0 +1,86 @@
+﻿@model OnlineCourt2017.Data.Models.Offer
+
+@{
+    if(Model.OfferId == 0)
+    {
+
+        ViewBag.Title = "Make Initial Offer";
+    }
+    else
+    {
+
+        ViewBag.Title = "Make Counter Offer";
+    }
+
+    var currentValue = Model.Value;
+    Model.Value = 0;
+    Model.Description = "";
+}
+
+<script>
+    var oldValue = '@currentValue.ToString()';
+    function keepValueChecked() {
+        if ($('#keepValue').is(':checked')) {
+            $('#keepValue').addClass('disabled');
+            $('#Value').val(oldValue);
+        }
+        else {
+            $('#keepValue').removeClass('disabled');
+        }
+    }
+
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CaseOverview", Model.Case)
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Offer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="alert alert-warning">
+            <h4>Guided offer: £4,750</h4>
+            <p>We recommend the parties agree an offer of this amount, based on the parties most recent offers and settlement averages.</p>
+        </div>        
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Value">Offer £</label>
+            <div class="col-lg-10">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="keepValue" id="keepValue" onchange="keepValueChecked()"> Keep Value
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Description">Comments</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="Description" name="Description" style="min-width: 100%">@Model.Description</textarea>
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit Offer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

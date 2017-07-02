@@ -1,0 +1,21 @@
+﻿@model OnlineCourt2017.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Offer Accepted";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CaseOverview", Model.Case)
+
+<h3>Good news. The offer has been accepted.</h3>
+<br />
+<h5>
+    You will now need to make a payment of £@Model.Value into the OSP account by no later than @DateTime.Now.AddDays(14).ToString("dd/MM/yyyy")
+    <br /><br />
+    The OSP will keep hold of the money until both parties have finalised the process.
+    <br/>
+    <br />
+    <br />
+    <a href="/Offer/Payment" class="btn btn-primary btn-s">Proceed to Make Payment</a>
+</h5>

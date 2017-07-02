@@ -1,0 +1,26 @@
+﻿@model OnlineCourt2017.Data.Models.Case
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Overview</h3>
+        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="focusedInput">Name of Defendant</label>
+            <p class="text-muted">@Model.Claimant.Forename @Model.Claimant.Surname</p>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="focusedInput">Case</label>
+            <p class="text-muted">@Model.Title</p>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="focusedInput">Claim Number</label>
+            <p class="text-muted">@Model.CaseNumber</p>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="focusedInput">Case Worker</label>
+            <p class="text-muted">@Model.CaseWorker.Forename @Model.CaseWorker.Surname</p>
+        </div>
+    </div>
+</div>

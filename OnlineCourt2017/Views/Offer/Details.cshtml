@@ -1,0 +1,150 @@
+﻿@model OnlineCourt2017.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Current Offer Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CaseOverview", Model.Case)
+
+<script>
+    function doClick() {
+        if ($('#messageDiv').is(":visible")) {
+            // send message
+
+            $.ajax({
+                url: "/Offer/StoreComment",
+                data: {
+                    format: 'json',
+                    offerId: @Model.OfferId,
+                    message: $('#replyMessage').val()
+                },
+                error: function () {
+                    alert("Error saving comment");
+                },
+                success: function (data) {
+                    $('#previousComments').html('');
+                    for (var i = 0; i < data.length; i++) {
+                        $('#previousComments').append('<div><div><small>' + data[i].Created + '  - ' + data[i].Forename + ' ' + data[i].Surname + '</small></div><div>' + data[i].Details + '</div></div>');
+                    }
+                    $('#messageDiv').hide();
+                    $('#buttonReply').text("Reply");
+                    $('#replyMessage').val('')
+                },
+                type: 'POST'
+            });
+        } else {
+            // shows div
+            $('#messageDiv').show();
+            $('#buttonReply').text("Send");
+        }
+    }
+</script>
+<table class="table">
+    <thead>
+        <tr>
+            <th><h5>Amount</h5></th>
+            <th><h5>Date</h5></th>
+            <th><h5>Response</h5></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><h3>@Model.Value.ToString("C")</h3></td>
+            <td><h3>@Model.Created.ToString("dd/MM/yyyy")</h3></td>
+            <td>
+                <h3>
+
+                        <a href="/Offer/Accept" class="btn btn-primary btn-s btn-success">Accept</a>
+                        <a href="/Offer/Create" class="btn btn-primary btn-s">Make Another Offer</a>
+                        <a href="#" class="btn btn-primary btn-s btn-warning">Conference</a>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Comments</div>
+                    <div class="panel-body">
+                        <div>
+                            <div><small>@Model.Created.ToString("dd/MM/yyyy HH:mm")  - @Model.CreatedBy.Forename @Model.CreatedBy.Surname</small></div>
+                            <div>@Model.Description</div>
+                        </div>
+                        <div id="previousComments">
+                            @foreach (OnlineCourt2017.Data.Models.OfferComment item in Model.OfferComments.OrderBy(o => o.Created))
+                            {
+                                <div><div><small>@item.Created.ToShortDateString() - @item.CreatedBy.Forename @item.CreatedBy.Surname</small></div><div>@item.Details</div></div>
+                            }
+                        </div>
+                        <div id="messageDiv" class="col-lg-10" style="padding-top:10px; display:none;">
+                            <textarea class="form-control" rows="3" id="replyMessage" name="replyMessage" style="min-width: 100%"></textarea>
+                        </div>
+                        <div style="float: right;padding-top:10px;">
+
+                                <a id="buttonReply" href="javascript:doClick();" class="btn btn-primary btn-xs">Reply</a>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h4>Offer History</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Made By</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model.Case.Offers)
+        {
+            <tr>
+                <td>@offer.Value.ToString("C")</td>
+                <td>@offer.Created.ToString("dd/MM/yyyy")</td>
+                <td>@offer.CreatedBy.Forename @offer.CreatedBy.Surname</td>
+                <td>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="@string.Format("#myModal{0}", offer.OfferId)" class="btn btn-primary btn-xs">Comments</a>
+                    <!-- Modal -->
+                    <div id="@string.Format("myModal{0}", offer.OfferId)" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Comments</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <div><small>@offer.Created.ToString("dd/MM/yyyy HH:mm")  - @offer.CreatedBy.Forename @offer.CreatedBy.Surname</small></div>
+                                        <div>@offer.Description</div>
+                                    </div>
+
+                                    @foreach (OnlineCourt2017.Data.Models.OfferComment item in offer.OfferComments.OrderBy(o => o.Created))
+                                    {
+                                        <div><div><small>@item.Created.ToShortDateString() - @item.CreatedBy.Forename @item.CreatedBy.Surname</small></div><div>@item.Details</div></div>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</table>

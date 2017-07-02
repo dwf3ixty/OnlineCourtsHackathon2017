@@ -1,0 +1,177 @@
+﻿@model OnlineCourt2017.Models.CaseDashboardView
+
+@{
+    ViewBag.Title = "Case";
+}
+<h2>@ViewBag.Title</h2>
+@Html.Partial("_CaseOverview", Model.Case)
+<div class="row">
+    <div class="list-group col-md-3">
+        <a href="#" class="list-group-item">
+            <h5 class="list-group-item-heading">Value of claim</h5>
+            <h4 class="text-primary"><span class="pull-right">£@Model.Case.ClaimValue.ToString("#,##0.00")</span></h4>
+            <br /><br />
+        </a>
+        <a href="#" class="list-group-item">
+            <h5 class="list-group-item-heading">Your latest offer</h5>
+            <h4 class="text-success"><span class="pull-right">@if (Model.YourLatestOffer != null) { @("£" + Model.YourLatestOffer.Value.ToString("#,##0.00")) } else { @("None") }</span></h4>
+            <br /><br />
+        </a>
+        <a href="#" class="list-group-item">
+            <h5 class="list-group-item-heading">Their latest offer</h5>
+            <h4 class="text-success"><span class="pull-right">@if (Model.TheirLatestOffer != null) { @("£" + Model.TheirLatestOffer.Value.ToString("#,##0.00")) } else { @("None") }</span></h4>
+            <br /><br />
+        </a>
+    </div>
+    <div class="list-group col-md-9">
+        <canvas id="myChart" width="400" height="120"></canvas>
+    </div>
+    <h3>Where is your case up to?</h3>
+    <div class="col-md-2 case-progress">
+        <div class="panel panel-success">
+            <div class="panel-heading case-progress">
+                <div class="close progress-symbol">
+                    <p><i class="fa fa-check fa-lg" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <h3 class="panel-title">You might make a claim</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 case-progress">
+        <div class="panel panel-success">
+            <div class="panel-heading case-progress">
+                <div class="close progress-symbol">
+                    <p><i class="fa fa-check fa-lg" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <h3 class="panel-title">You made a claim</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 case-progress">
+        <div class="panel panel-warning">
+            <div class="panel-heading case-progress">
+                <div class="close progress-symbol">
+                    <p><i class="fa fa-tasks fa-lg" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <h3 class="panel-title">Court is accessing the claim</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-info">
+            <div class="panel-heading case-progress">
+                <div class="close progress-symbol">
+                    <p><i class="fa fa-times fa-lg" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <h3 class="panel-title">We are gathering evidence</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-info">
+            <div class="panel-heading case-progress">
+                <div class="close progress-symbol">
+                    <p><i class="fa fa-times fa-lg" aria-hidden="true"></i></p>
+                </div>
+                <div>
+                    <h3 class="panel-title">Final decision</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Time spent on portal: <span class="text-muted">5 hrs 38 minutes</span></h4>
+
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["26 Jun", "27 Jun", "28 Jun", "29 Jun", "30 Jun", "31 Jun"],
+            datasets: [{
+                label: 'Your offers',
+                data: [1500, 1400, 1350, 1300, 1300, 1200],
+                backgroundColor: [
+                    'rgba(10, 84, 7, 0.0)',
+                    'rgba(10, 84, 7, 0.2)',
+                    'rgba(10, 84, 7, 0.2)',
+                    'rgba(10, 84, 7, 0.2)',
+                    'rgba(10, 84, 7, 0.2)',
+                    'rgba(10, 84, 7, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 114, 170, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 2
+            },
+            {
+                label: 'Their offers',
+                data: [600, 700, 800, 800, 850, 950],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.0)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(219,160,24,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 2
+            },
+            {
+                label: 'Average settlement',
+                data: [1048, 1048, 1048, 1048, 1048, 1048],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.0)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(99,99,99,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 0.5
+            },
+            {
+                label: 'Upper 10%',
+                data: [1153, 1153, 1153, 1153, 1153, 1153],
+                borderWidth: 0.5,
+                fill: 2
+            },
+            {
+                label: 'Lower 10%',
+                data: [943, 943, 943, 943, 943, 943],
+                borderWidth: 0.5,
+                fill: 2
+            }]
+        }
+    });
+</script>

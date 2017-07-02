@@ -1,0 +1,27 @@
+﻿@model OnlineCourt2017.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Case Summary";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CaseOverview", Model.Case)
+
+<div style="padding-left: 30px;">
+    <h4>
+        Ref number [@Model.Case.CaseNumber]<br />
+        <br />
+        <div style="padding-left: 30px;">
+            1)	@Model.Case.Claimant.Forename and @Model.Case.Defendant.Forename have settled the claim<br /><br />
+            2)	@Model.Case.Defendant.Forename has agreed to pay @Model.Case.Claimant.Forename £4,750<br /><br />
+            3)	@Model.Case.Defendant.Forename has paid £4,750 to OSP, that will send the money to @Model.Case.Claimant.Forename.<br /><br />
+            4)	@Model.Case.Claimant.Forename agrees not to carry on with the claim<br /><br />
+            5)	@Model.Case.Claimant.Forename and @Model.Case.Defendant.Forename agree not to tell other people about what they have agreed.<br /><br />
+        </div>
+        <br /><br />
+
+        <a href="#" class="btn btn-primary btn-s btn-success">Accept Terms</a>
+        <a href="#" class="btn btn-primary btn-s ">Raise Query</a>
+    </h4>
+</div>

@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "Why Should I Settle?";
+}
+<h2>@ViewBag.Title</h2>
+<h4>Welcome to your online settlement portal</h4>
+<div class="row">
+    <p>The idea behind this portal is to enable you to reach an early settlement and provide you with the tools to help you do this.</p>
+    <p>We're going to ask you a few questions to help you understand your claim type a bit better.</p>
+</div>
+<div class="row">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Q: How much do you think the average claim of this type settles for/is awarded?</legend>
+        </fieldset>
+        <div class="form-group">
+            <div class="col-lg-10">
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(1, false);">
+                        £2,000
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(1, true);">
+                        £5,000
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(1, false);">
+                        £10,000
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success question-answer" id="q1c" style="display:none">
+            <strong>Correct!</strong> The answer is only £2,000.
+        </div>
+        <div class="alert alert-danger question-answer" id="q1i" style="display:none">
+            <strong>No</strong>, actually the average is £2,000.
+        </div>
+    </form>
+
+    <br /><br />
+
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Q: How much do you think the average person has to spend dealing with this type of claim?</legend>
+        </fieldset>
+        <div class="form-group">
+            <div class="col-lg-10">
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(2, false);">
+                        10 hours
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(2, false);">
+                        50 hours
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(2, true);">
+                        100 hours
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success question-answer" id="q2c" style="display:none">
+            <strong>Correct!</strong> The average is 100 hours. That is almost 3 full working weeks.
+        </div>
+        <div class="alert alert-danger question-answer" id="q2i" style="display:none">
+            <strong>No</strong>, actually the average is 100 hours, which is almost 3 full working weeks.
+        </div>
+    </form>
+
+    <br /><br />
+
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Q: Which of the following do you think people should think about when settling a claim to avoid going thorugh the Court system?</legend>
+        </fieldset>
+        <div class="form-group">
+            <div class="col-lg-10">
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(3, false);">
+                        Stress of the process
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(3, false);">
+                        Risk and lack of certainty over the outcome
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(3, false);">
+                        Money that will need to be spent
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(3, false);">
+                        Preserving relationships with the other party
+                    </label>
+                </div>
+                <div class="radio col-lg-3">
+                    <label>
+                        <input type="radio" name="optionsRadios" onclick="hideShowQuestionAnswers(3, true);">
+                        All of these
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success question-answer" id="q3c" style="display:none">
+            <strong>Yes</strong>, you need to give careful thought to lots of factors.
+        </div>
+        <div class="alert alert-danger question-answer" id="q3i" style="display:none">
+            <strong>No</strong>, the correct answer is all of these.
+        </div>
+    </form>
+    <br />
+    <div class="pull-right">
+        <p>If you would still like to progress your claim, the tutorial video can help you get started</p>
+        <div class="pull-right">
+            @if ((bool)ViewBag.HasSeenPreferences == false)
+            {
+                <a href="@Url.Action("Preferences")" class="btn btn-info">Continue</a>
+            }
+            <a href="@Url.Action("VideoTutorial")" class="btn btn-success">Watch Tutorial</a>
+        </div>
+    </div>
+</div>
+<script>
+    function hideShowQuestionAnswers(questionSet, correct) {
+        if (correct) {
+            $('#q' + questionSet + 'i').hide();
+            $('#q' + questionSet + 'c').show();
+        } else {
+            $('#q' + questionSet + 'i').show();
+            $('#q' + questionSet + 'c').hide();
+        }
+    }
+</script>

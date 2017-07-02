@@ -1,0 +1,11 @@
+﻿
+<div>
+    <h2>Video Tutorial</h2>
+    <p>The following video will guide you through using the portal</p>
+    <p><img src="~/Content/video_overlay.png" alt="Video Tutorial" class="img-responsive" /></p>
+   @if ((bool)ViewBag.HasSeenPreferences == false)
+   {
+    <p><a href="@Url.Action("Preferences")" class="btn btn-success pull-right">Continue</a></p>
+   }
+   <br /><br />
+</div>

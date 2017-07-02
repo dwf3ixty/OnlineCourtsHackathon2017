@@ -1,0 +1,60 @@
+﻿@model OnlineCourt2017.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Offer Payment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_CaseOverview", Model.Case)
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#home" data-toggle="tab">Debit Card</a></li>
+    <li><a href="#profile" data-toggle="tab">Credit Card</a></li>
+    <li><a href="#profile" data-toggle="tab">Bank Transfer</a></li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="home">
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" for="focusedInput">Name on Card</label>
+                        <input class="form-control" id="focusedInput" type="text" value="" style="min-width: 100%;">
+                    </div>
+                </div>
+                <div class="col-md-5" id="map">
+                    <div class="form-group">
+                        <label class="control-label" for="focusedInput">Card Number</label>
+                        <input class="form-control" id="focusedInput" type="text" value="" style="min-width: 100%;">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Expiry</label>
+                                <input class="form-control" id="focusedInput" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">CVC</label>
+                                <input class="form-control" id="focusedInput" type="text" value="">
+                            </div>
+                        </div>
+                           </div>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<a href="/Offer/Summary" class="btn btn-primary btn-s ">Submit Payment</a>

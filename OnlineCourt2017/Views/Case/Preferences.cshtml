@@ -1,0 +1,87 @@
+﻿@model OnlineCourt2017.Models.Preferences
+@{
+    var telephone = string.Empty;
+    if (Model.Telephone == true)
+    {
+        telephone = "checked=\"checked\"";
+    }
+
+    var email = string.Empty;
+    if (Model.Email == true)
+    {
+        email = "checked=\"checked\"";
+    }
+
+    var faceToFace = string.Empty;
+    if (Model.FaceToFace == true)
+    {
+        faceToFace = "checked=\"checked\"";
+    }
+
+    var video = string.Empty;
+    if (Model.VideoConference == true)
+    {
+        video = "checked=\"checked\"";
+    }
+
+
+}
+<div>
+    <h2>Preferences</h2>
+    <form class="form-horizontal" method="post">
+        <fieldset>
+            <legend>Q: How are you willing to communicate with @Model.Name throughout the process?</legend>
+        </fieldset>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Telephone</label>
+            <div class="col-lg-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @telephone name="telephone">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Face to Face</label>
+            <div class="col-lg-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @faceToFace name="facetoface">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @email name="email">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Video Conference</label>
+            <div class="col-lg-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @video name="videoconference">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
